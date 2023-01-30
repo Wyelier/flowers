@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Flower>> call, Throwable throwable) {
-                Toast.makeText(MainActivity.this, "Что-то пошло не так",
+                Toast.makeText(MainActivity.this, "Что-то пошло не так " + throwable.getMessage(),
                         Toast.LENGTH_SHORT).show();
                 mProgressBar.setVisibility(View.INVISIBLE);
             }

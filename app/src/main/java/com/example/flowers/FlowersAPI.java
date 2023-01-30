@@ -12,7 +12,7 @@ public interface FlowersAPI {
     Call<List<Flower>> getData();
 
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://services.hanselandpetal.com/")
+            .baseUrl("https://services.hanselandpetal.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
 }

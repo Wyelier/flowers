@@ -1,6 +1,8 @@
 package com.example.flowers;
 
 import android.content.Context;
+import android.os.Build;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,9 +28,9 @@ class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         mContext = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(v);
     }
 
     @Override
