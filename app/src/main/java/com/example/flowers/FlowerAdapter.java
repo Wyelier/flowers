@@ -13,44 +13,52 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.ViewHolder> {
-    private List<UPost> posts;
 
-    UmoriliAdapter(List<UPost> posts) {
-        this.posts = posts;
+class FlowerAdapter extends RecyclerView.Adapter<FlowerAdapter.ViewHolder> {
+    private final static String PHOTO_URL = "https://services.hanselandpetal.com/photos/";
+    private List<Flower> mFlowers;
+    private Context mContext;
+
+    FlowerAdapter(List<Flower> flowers){
+        this.mFlowers = flowers;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent,
-                false);
-        return new ViewHolder(v);
+        mContext = parent.getContext();
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        UPost post = posts.get(position);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            holder.postTextView.setText(Html.fromHtml(post.getElementPureHtml(), Html
-                    .FROM_HTML_MODE_LEGACY));
-        } else {
-            holder.postTextView.setText(Html.fromHtml(post.getElementPureHtml()));
-        }
+
+        Flower flower = mFlowers.get(position);
+        holder.nameTextView.setText(flower.getName());
+
+        Picasso.with(mContext)
+                .load(PHOTO_URL + flower.getPhoto())
+                .resize(200, 150)
+                .into(holder.flowerImageView);
     }
 
     @Override
     public int getItemCount() {
-        if (posts == null)
+        if (mFlowers == null) {
             return 0;
-        return posts.size();
+        }
+        return mFlowers.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView postTextView;
+        TextView nameTextView;
+        ImageView flowerImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
-            postTextView =  itemView.findViewById(R.id.textView_item_post);
+            nameTextView = (TextView) itemView.findViewById(R.id.nameTextView);
+            flowerImageView = (ImageView) itemView.findViewById(R.id.itemImageView);
         }
     }
 }
